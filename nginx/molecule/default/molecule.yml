@@ -1,0 +1,35 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  name: yamllint
+platforms:
+  - name: instance
+    # image: centos:7
+    # image: dramaturg/debian-systemd
+    image: ubuntu:16.04
+    privileged: true
+    command: /sbin/init
+    # required: true
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+scenario:
+  name: default
+  test_sequence:
+    - destroy
+    - syntax
+    - lint
+    - create
+    - converge
+    - idempotence
+    - verify
+verifier:
+  name: testinfra
+  options:
+    verbose: true
+  lint:
+    name: flake8

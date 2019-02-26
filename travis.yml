@@ -1,0 +1,15 @@
+---
+sudo: false
+language: python
+
+services:
+- docker
+
+install:
+- pip install molecule
+- pip install docker-py
+
+script:
+- cd nginx
+# Molecule Testing Travis-locally with Docker
+- molecule test
